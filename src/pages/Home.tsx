@@ -1,18 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Home.scss";
 import duck from "../assets/duck.jpg";
 import { FaArrowRight } from "react-icons/fa";
 import { Button } from "../components";
 import { useHistory } from "react-router";
+import { useSelector } from "react-redux";
+import { IState } from "../store/reducers";
 
 const Home: React.FC = () => {
   const history = useHistory();
+  const loader = useSelector((state: IState) => state.loaderReducer);
+
+  useEffect(() => {
+    console.log(loader);
+  });
 
   return (
     <div className="container">
       <div className="card">
         <div className="image-container">
-          <img src={duck} className="image" />
+          <img src={duck} className="image" alt="duck" />
         </div>
         <div className="welcome-msg-container">
           <div className="welcome-msg">
