@@ -6,6 +6,7 @@ import { Button } from "../components";
 import { useHistory } from "react-router";
 import { useSelector } from "react-redux";
 import { IState } from "../store/reducers";
+import firebase from "firebase";
 
 const Home: React.FC = () => {
   const history = useHistory();
@@ -13,7 +14,8 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     console.log(loader);
-  });
+    console.log(firebase.auth().currentUser);
+  }, []);
 
   return (
     <div className="container">
