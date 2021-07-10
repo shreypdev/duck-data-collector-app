@@ -1,8 +1,8 @@
 import React from "react";
 import "./App.scss";
-import { Navbar } from "./components";
+import { AppLoader, Navbar } from "./components";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Home from "./pages/Home";
+import { Home } from "./pages";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistor, store } from "./store";
@@ -27,6 +27,7 @@ function App() {
       <PersistGate persistor={persistor}>
         <FirebaseAuthProvider firebase={firebase} {...firebaseConfig}>
           <Router>
+            <AppLoader />
             <Navbar />
             <Switch>
               <Route path="/" exact component={Home} />

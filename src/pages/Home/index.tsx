@@ -1,21 +1,20 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./Home.scss";
-import duck from "../assets/duck.jpg";
+import { useDispatch } from "react-redux";
+import duck from "../../assets/duck.jpg";
 import { FaArrowRight } from "react-icons/fa";
-import { Button } from "../components";
+import { Button } from "../../components";
 import { useHistory } from "react-router";
-import { useSelector } from "react-redux";
-import { IState } from "../store/reducers";
-import firebase from "firebase";
+import Actions from "../../store/actions";
 
-const Home: React.FC = () => {
+export const Home: React.FC = () => {
   const history = useHistory();
-  const loader = useSelector((state: IState) => state.loaderReducer);
+  const dispatch = useDispatch();
 
-  useEffect(() => {
-    console.log(loader);
-    console.log(firebase.auth().currentUser);
-  }, []);
+  const handleGetStartedClick = () => {
+    dispatch(Actions.showLoader());
+    history.push("/fill");
+  };
 
   return (
     <div className="container">
@@ -36,12 +35,10 @@ const Home: React.FC = () => {
           <Button
             text={`Get Started`}
             rightIcon={<FaArrowRight />}
-            onClick={() => history.push("/fill")}
+            onClick={handleGetStartedClick}
           />
         </div>
       </div>
     </div>
   );
 };
-
-export default Home;
