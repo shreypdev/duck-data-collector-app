@@ -1,30 +1,32 @@
 import React from "react";
-import "./Navbar.scss";
-import { Container, Nav, Navbar } from "react-bootstrap";
-import { FaUser, FaSignInAlt } from "react-icons/fa";
+import {
+  Nav,
+  NavLink,
+  Logo,
+  Bars,
+  NavMenu,
+  NavBtn,
+  NavBtnLink,
+} from "./NavbarElements";
+import logo from "../../assets/logo.png";
 
-export const NavigationBar: React.FC = () => {
+export const Navbar: React.FC = () => {
   return (
-    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" sticky="top">
-      <Container>
-        <Navbar.Brand href="/">Duck Data Collector</Navbar.Brand>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="me-auto">
-            <Nav.Link href="/add-new-data">Add New Data</Nav.Link>
-          </Nav>
-          <Nav>
-            <Nav.Link href="/signup">
-              <FaUser /> Sign Up
-            </Nav.Link>
-            <Nav.Link href="/login">
-              <FaSignInAlt /> Login
-            </Nav.Link>
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+    <Nav>
+      <NavLink to="/">
+        <Logo src={logo} alt="logo" />
+      </NavLink>
+      <Bars />
+      <NavMenu>
+        <NavLink to="/add-new-data">Add New Data</NavLink>
+        <NavLink to="/services">Check Data</NavLink>
+      </NavMenu>
+      <NavMenu>
+        <NavLink to="/login">Log In</NavLink>
+        <NavBtn>
+          <NavBtnLink to="/signup">Sign Up</NavBtnLink>
+        </NavBtn>
+      </NavMenu>
+    </Nav>
   );
 };
-
-export default Navbar;
