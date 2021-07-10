@@ -15,7 +15,7 @@ export const Button: React.FC<ButtonProps> = ({ text, rightIcon, onClick }) => {
   return (
     <a className="btn" onClick={handleClick}>
       {text}
-      <span className="right-icon">{rightIcon}</span>
+      {rightIcon && <span className="right-icon">{rightIcon}</span>}
     </a>
   );
 };
