@@ -2,8 +2,12 @@ import React from "react";
 import "./Home.scss";
 import duck from "../assets/duck.jpg";
 import { FaArrowRight } from "react-icons/fa";
+import { Button } from "../components";
+import { useHistory } from "react-router";
 
 const Home: React.FC = () => {
+  const history = useHistory();
+
   return (
     <div className="container">
       <div className="card">
@@ -20,9 +24,11 @@ const Home: React.FC = () => {
               parks around the world.
             </h4>
           </div>
-          <a href="/path" className="btn">
-            Get Started &nbsp; <FaArrowRight />
-          </a>
+          <Button
+            text={`Get Started`}
+            rightIcon={<FaArrowRight />}
+            onClick={() => history.push("/fill")}
+          />
         </div>
       </div>
     </div>

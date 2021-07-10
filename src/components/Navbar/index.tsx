@@ -1,32 +1,29 @@
 import React from "react";
-import {
-  Nav,
-  NavLink,
-  Logo,
-  Bars,
-  NavMenu,
-  NavBtn,
-  NavBtnLink,
-} from "./NavbarElements";
+import "./Navbar.scss";
+import { FaBars } from "react-icons/fa";
 import logo from "../../assets/logo.png";
+import { Link, useHistory } from "react-router-dom";
+import { Button } from "..";
 
 export const Navbar: React.FC = () => {
+  const history = useHistory();
+
   return (
-    <Nav>
-      <NavLink to="/">
-        <Logo src={logo} alt="logo" />
-      </NavLink>
-      <Bars />
-      <NavMenu>
-        <NavLink to="/add-new-data">Add New Data</NavLink>
-        <NavLink to="/services">Check Data</NavLink>
-      </NavMenu>
-      <NavMenu>
-        <NavLink to="/login">Log In</NavLink>
-        <NavBtn>
-          <NavBtnLink to="/signup">Sign Up</NavBtnLink>
-        </NavBtn>
-      </NavMenu>
-    </Nav>
+    <nav className="navbar">
+      <Link className="link" to="/">
+        <img className="logo" src={logo} alt="logo" />
+      </Link>
+      <FaBars className="bars-icon" />
+      <div className="nav-menu">
+        {/* <Link className='link' to="/add-new-data">Add New Data</Link>
+        <Link className='link' to="/services">Check Data</Link> */}
+      </div>
+      <div className="nav-menu mr">
+        <Link className="link" to="/login">
+          Log In
+        </Link>
+        <Button text={`Sign Up`} onClick={() => history.push("/signup")} />
+      </div>
+    </nav>
   );
 };
