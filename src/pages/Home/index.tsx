@@ -1,23 +1,19 @@
 import React from "react";
 import "./Home.scss";
-import { useDispatch } from "react-redux";
 import duck from "../../assets/duck.jpg";
 import { FaArrowRight } from "react-icons/fa";
 import { Button } from "../../components";
 import { useHistory } from "react-router";
-import Actions from "../../store/actions";
 
 export const Home: React.FC = () => {
   const history = useHistory();
-  const dispatch = useDispatch();
 
   const handleGetStartedClick = () => {
-    dispatch(Actions.showLoader());
-    history.push("/fill");
+    history.push("provide-data");
   };
 
   return (
-    <div className="container">
+    <div className="home-container">
       <div className="card">
         <div className="image-container">
           <img src={duck} className="image" alt="duck" />

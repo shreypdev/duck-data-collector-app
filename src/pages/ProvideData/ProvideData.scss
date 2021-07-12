@@ -1,0 +1,16 @@
+.provide-data-container {
+  position: relative;
+  top: 100px;
+  height: 100%;
+
+  .title {
+    text-align: center;
+  }
+
+  .form-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+}
