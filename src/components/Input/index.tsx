@@ -48,15 +48,6 @@ export const InputBox: React.FC<InputBoxProps> = ({
     </FormGroup>
   );
 };
-{
-  /* <FormGroup>
-                <ControlLabel>How much food</ControlLabel>
-                <InputGroup>
-                  <FormControl name="foodQuantity" type='number'/>
-                  <InputGroup.Addon>gm</InputGroup.Addon>
-                </InputGroup>
-              </FormGroup> */
-}
 
 interface DateInputProps extends DatePickerProps {
   label?: string;

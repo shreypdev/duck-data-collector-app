@@ -2,20 +2,13 @@ import React, { useState } from "react";
 import "./ProvideData.scss";
 import { useHistory } from "react-router";
 import {
-  Grid,
   Schema,
-  Row,
-  Col,
   Form,
   FormGroup,
-  ControlLabel,
-  FormControl,
-  HelpBlock,
   ButtonToolbar,
   Button,
   FlexboxGrid,
-  DatePicker,
-  InputGroup,
+  Alert,
 } from "rsuite";
 import { DateInput, InputBox } from "../../components";
 
@@ -32,10 +25,27 @@ export const ProvideData: React.FC = () => {
   });
   const [date, setDate] = useState<Date>(new Date());
 
-  const { ArrayType, StringType, NumberType } = Schema.Types;
+  const { NumberType, StringType } = Schema.Types;
+  const model = Schema.Model({
+    food: StringType().isRequired("This field is required."),
+    place: StringType().isRequired("This field is required."),
+    count: NumberType()
+      .isInteger("Should have a decimal point.")
+      .isRequired("This field is required."),
+    foodKind: StringType().isRequired("This field is required."),
+    foodQuantity: NumberType().isRequired("This field is required."),
+  });
 
-  const handleFormSubmit = () => {
-    console.log(formValues, date);
+  const handleFormSubmit = (
+    checkStatus: boolean,
+    event: React.FormEvent<HTMLFormElement>
+  ) => {
+    if (!checkStatus) {
+      Alert.error(
+        "Form cannot be submitted, please complete the requirements."
+      );
+      return;
+    }
   };
 
   return (
@@ -48,12 +58,14 @@ export const ProvideData: React.FC = () => {
               onSubmit={handleFormSubmit}
               formValue={formValues}
               onChange={setFormValues}
+              model={model}
             >
               <DateInput
                 label="Time"
                 value={date}
                 onChange={setDate}
                 message="Required"
+                name="time"
               />
               <InputBox label="Food" name="food" message="Required" />
               <InputBox label="Place" name="place" message="Required" />
