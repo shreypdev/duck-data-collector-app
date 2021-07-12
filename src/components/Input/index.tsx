@@ -27,24 +27,17 @@ export const InputBox: React.FC<InputBoxProps> = ({
   return (
     <FormGroup>
       <ControlLabel>{label}</ControlLabel>
-      {!addonText ? (
-        <>
+      <span className="addon-input-container">
+        <InputGroup>
           <FormControl
             className={errorMessage ? "has-error" : ""}
             errorMessage={errorMessage}
             {...props}
           />
-          <HelpBlock tooltip>{message}</HelpBlock>
-        </>
-      ) : (
-        <span className="addon-input-container">
-          <InputGroup>
-            <FormControl errorMessage={errorMessage} {...props} />
-            <InputGroup.Addon>{addonText}</InputGroup.Addon>
-          </InputGroup>
-          <HelpBlock tooltip>{message}</HelpBlock>
-        </span>
-      )}
+          {addonText ? <InputGroup.Addon>{addonText}</InputGroup.Addon> : <></>}
+        </InputGroup>
+        <HelpBlock tooltip>{message}</HelpBlock>
+      </span>
     </FormGroup>
   );
 };
