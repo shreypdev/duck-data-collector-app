@@ -28,10 +28,6 @@ const UnauthorizedOnlyRoute: React.FC<RouteProps> = (props) => {
 
 // Main
 export const Switcher: React.FC = () => {
-  const isAuthenticated = useSelector(
-    (state: IState) => state.authReducer.authenticated
-  );
-
   return (
     <Switch>
       <Route path="/" exact component={Home} />
