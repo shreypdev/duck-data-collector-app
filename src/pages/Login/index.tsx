@@ -3,10 +3,13 @@ import "./Login.scss";
 import { Grid, Row, Col, Button, Form, Alert, Schema } from "rsuite";
 import LoginImg from "../../assets/login.svg";
 import { InputBox } from "../../components";
+import Actions from "../../store/actions";
+import { useDispatch } from "react-redux";
 
 type Input = "email" | "password";
 
 export const Login: React.FC = () => {
+  const dispatch = useDispatch();
   const [formValues, setFormValues] = useState<Record<Input, string>>({
     email: "",
     password: "",
@@ -30,13 +33,14 @@ export const Login: React.FC = () => {
     checkStatus: boolean,
     event: React.FormEvent<HTMLFormElement>
   ) => {
-    console.log("hey");
     if (!checkStatus) {
-      Alert.error(
-        "Form cannot be submitted, please complete the requirements."
-      );
+      Alert.error("Please enter all the required details.");
       return;
     }
+
+    const { email, password } = formValues;
+
+    dispatch(Actions.login(email, password));
   };
 
   return (

@@ -3,10 +3,13 @@ import "./Signup.scss";
 import { Grid, Row, Col, Button, Form, Alert, Schema } from "rsuite";
 import SignupImg from "../../assets/signup.svg";
 import { InputBox } from "../../components";
+import { useDispatch } from "react-redux";
+import Actions from "../../store/actions";
 
 type Input = "name" | "email" | "password" | "confirmPassword";
 
 export const Signup: React.FC = () => {
+  const dispatch = useDispatch();
   const [formValues, setFormValues] = useState<Record<Input, string>>({
     name: "",
     email: "",
@@ -35,17 +38,18 @@ export const Signup: React.FC = () => {
       .isRequired("This field is required."),
   });
 
-  const handleFormSubmit = (
+  const handleFormSubmit = async (
     checkStatus: boolean,
     event: React.FormEvent<HTMLFormElement>
   ) => {
-    console.log("hey");
     if (!checkStatus) {
-      Alert.error(
-        "Form cannot be submitted, please complete the requirements."
-      );
+      Alert.error("Please enter all the required details.");
       return;
     }
+
+    const { name, email, password } = formValues;
+
+    dispatch(Actions.signup(name, email, password));
   };
 
   return (
