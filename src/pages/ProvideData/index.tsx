@@ -11,18 +11,24 @@ import {
   Alert,
 } from "rsuite";
 import { DateInput, InputBox } from "../../components";
+import { FoodInfo } from "../../services/apis/FoodInfo";
+import { useDispatch } from "react-redux";
+import Actions from "../../store/actions";
 
 type Input = "food" | "place" | "count" | "foodKind" | "foodQuantity";
 
 export const ProvideData: React.FC = () => {
   const history = useHistory();
-  const [formValues, setFormValues] = useState<Record<Input, string>>({
+  const dispatch = useDispatch();
+  const initialFormValues = {
     food: "",
     place: "",
     count: "",
     foodKind: "",
     foodQuantity: "",
-  });
+  };
+  const [formValues, setFormValues] =
+    useState<Record<Input, string>>(initialFormValues);
   const [date, setDate] = useState<Date>(new Date());
 
   const { NumberType, StringType } = Schema.Types;
@@ -36,7 +42,7 @@ export const ProvideData: React.FC = () => {
     foodQuantity: NumberType().isRequired("This field is required."),
   });
 
-  const handleFormSubmit = (
+  const handleFormSubmit = async (
     checkStatus: boolean,
     event: React.FormEvent<HTMLFormElement>
   ) => {
@@ -45,6 +51,38 @@ export const ProvideData: React.FC = () => {
         "Form cannot be submitted, please complete the requirements."
       );
       return;
+    }
+
+    dispatch(Actions.showLoader());
+
+    const { food, place, count, foodKind, foodQuantity } = formValues;
+
+    try {
+      await new FoodInfo().createFoodInfo(
+        {
+          time: date.toISOString(),
+          food,
+          place,
+          numberOfDucks: parseInt(count),
+          foodKind,
+          quantity: parseInt(foodQuantity),
+        },
+        {
+          baseURL: "http://duck-data-collector-api.shreypdev.com",
+        }
+      );
+
+      dispatch(Actions.hideLoader());
+
+      setFormValues(initialFormValues);
+
+      Alert.success(
+        "Form cannot be submitted, please complete the requirements."
+      );
+
+      setTimeout(() => history.push("/"), 2000);
+    } catch (error) {
+      console.log(error);
     }
   };
 
