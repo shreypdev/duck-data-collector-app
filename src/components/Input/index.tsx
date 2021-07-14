@@ -9,7 +9,9 @@ import {
   DatePicker,
   DatePickerProps,
   InputGroup,
+  Icon,
 } from "rsuite";
+import { useState } from "react";
 
 interface InputBoxProps extends FormControlProps {
   label?: string;
@@ -22,8 +24,11 @@ export const InputBox: React.FC<InputBoxProps> = ({
   message,
   addonText,
   errorMessage,
+  type,
   ...props
 }) => {
+  const [isPasswordHidden, setPasswordHidden] = useState(true);
+
   return (
     <FormGroup>
       <ControlLabel>{label}</ControlLabel>
@@ -32,11 +37,21 @@ export const InputBox: React.FC<InputBoxProps> = ({
           <FormControl
             className={errorMessage ? "has-error" : ""}
             errorMessage={errorMessage}
+            type={type === "password" && !isPasswordHidden ? "text" : type}
             {...props}
           />
           {addonText ? <InputGroup.Addon>{addonText}</InputGroup.Addon> : <></>}
+          {type === "password" ? (
+            <InputGroup.Button
+              onClick={() => setPasswordHidden(!isPasswordHidden)}
+            >
+              <Icon icon={isPasswordHidden ? "eye" : "eye-slash"} />
+            </InputGroup.Button>
+          ) : (
+            <></>
+          )}
         </InputGroup>
-        <HelpBlock tooltip>{message}</HelpBlock>
+        {message && <HelpBlock tooltip>{message}</HelpBlock>}
       </span>
     </FormGroup>
   );

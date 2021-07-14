@@ -2,7 +2,7 @@ import React from "react";
 import "./App.scss";
 import { AppLoader, Navbar } from "./components";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { Home, ProvideData, NotFound } from "./pages";
+import { Home, ProvideData, NotFound, Login, Signup } from "./pages";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistor, store } from "./store";
@@ -33,6 +33,8 @@ function App() {
             <Switch>
               <Route path="/" exact component={Home} />
               <Route path="/provide-data" exact component={ProvideData} />
+              <Route path="/login" exact component={Login} />
+              <Route path="/signup" exact component={Signup} />
               <Route component={NotFound} />
             </Switch>
           </Router>
